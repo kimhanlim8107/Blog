@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="HanLimKim">
+    <meta name="description" content="This is the page of the blog posting summary articles on Frontend, Backend, DevOps, and CS. 
+    This page focuses on organizing the principles contained in the technology rather than listing the detailed usage of the technology.">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog_Write</title>
+    <link rel="stylesheet" href="./static/blog_write.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header_container">
+                <a class="header_logo" href="blog_home.html">
+                    <img src="svg/home-solid.svg" alt="Blog Logo">
+                </a>
+                <h1 class="header_title">Main_Title</h1>
+                <div></div>
+        </header>
+        <nav>
+            <ul class="nav_container">
+                <li><a href="https://github.com/kimhanlim8107"><span>Github</span></a></li>
+                <li><a href=""><span>Frontend</span></a></li>
+                <li><a href=""><span>Backend</span></a></li>
+                <li><a href=""><span>DevOps</span></a></li>
+                <li><a href=""><span>CS</span></a></li>
+                <li><a href="blog_write.html"><span>블로그작성</span></a></li>
+            </ul>
+        </nav>
+        <main class="main_container">
+            <form class="main_form" action="https://httpbin.org/anything" method="post" accept-charset="utf-8">
+                <ul class="main_wrapper">
+                    <li>
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title" required>
+                    </li>
+                    <li>
+                        <label for="repository">Repository:</label>
+                        <select name="repository" id="repository" required>
+                            <option value="frontend" selected>Frontend</option>
+                            <option value="backend">Backend</option>
+                            <option value="devops">DevOps</option>
+                            <option value="cs">CS</option>
+                        </select>
+                    </li>
+                    <li class="content_wrapper">
+                        <label for="content"></label>
+                        <textarea name="content" id="content" cols="30" rows="40" min-length="25" placeholder="write your content here" required></textarea>
+                    </li>
+                    <li>
+                        <button type="submit">Submit</button>
+                    </li>
+                </ul>
+            </form>
+        </main>
+        <footer class="footer_container">
+            <p>E-mail</p>
+        </footer>
+    </div>
+</body>
+</html>

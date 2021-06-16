@@ -8,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog_Write</title>
-    <link rel="stylesheet" href="./static/blog_write.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='blog_write.css') }}">
 </head>
 <body>
     <div class="container">
         <header class="header_container">
                 <a class="header_logo" href="blog_home.html">
-                    <img src="svg/home-solid.svg" alt="Blog Logo">
+                    <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
-                <h1 class="header_title">Main_Title</h1>
+                <h1 class="header_title">블로그 작성</h1>
                 <div></div>
         </header>
         <nav>
@@ -30,7 +30,7 @@
             </ul>
         </nav>
         <main class="main_container">
-            <form class="main_form" action="https://httpbin.org/anything" method="post" accept-charset="utf-8">
+            <form class="main_form" method="post" accept-charset="utf-8">
                 <ul class="main_wrapper">
                     <li>
                         <label for="title">Title:</label>

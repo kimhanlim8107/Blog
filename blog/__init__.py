@@ -18,14 +18,13 @@ def create_app(test_config=None):
     except:
         pass
 
-    @app.route('/hello')
-    def hello():
-        return 'Hello World!'
-
     from . import db
     db.init_app(app)
 
     from . import blog_write
     app.register_blueprint(blog_write.bp)
+
+    from . import blog_home
+    app.register_blueprint(blog_home.bp)
 
     return app

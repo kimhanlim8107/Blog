@@ -1,13 +1,13 @@
 from datetime import datetime
 from flask import (
-    Blueprint, request, render_template, redirect
+    Blueprint, request, render_template, redirect, url_for
 )
 from blog.db import get_db
 
-bp = Blueprint('blog_write', __name__)
+bp = Blueprint('write', __name__)
 
-@bp.route('/blog_write', methods=('GET', 'POST'))
-def blog_write():
+@bp.route('/write', methods=('GET', 'POST'))
+def write():
     if request.method == 'POST':
         title = request.form['title']
         repo = request.form['repository']
@@ -25,7 +25,7 @@ def blog_write():
             db.execute("INSERT INTO post (title, repository, content, date) VALUES ('{}', '{}', '{}', '{}');".format(title, repo, content, date))
             db.commit()
 
-            return redirect('/blog_write')
+            return redirect(url_for('home.home'))
         
 
     return render_template('blog_write.html')

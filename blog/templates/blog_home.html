@@ -8,15 +8,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog_Home</title>
-    <link rel="stylesheet" href="./static/blog_home.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='blog_home.css') }}">
 </head>
 <body>
     <div class="container">
         <header class="header_container">
-                <a class="header_logo" href="blog_home.html">
-                    <img src="svg/home-solid.svg" alt="Blog Logo">
+                <a class="header_logo" href="{{ url_for('home.home') }}">
+                    <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
-                <h1 class="header_title">Main_Title</h1>
+                <h1 class="header_title">Home</h1>
                 <div></div>
         </header>
         <nav>
@@ -26,51 +26,47 @@
                 <li><a href=""><span>Backend</span></a></li>
                 <li><a href=""><span>DevOps</span></a></li>
                 <li><a href=""><span>CS</span></a></li>
-                <li><a href="blog_write.html"><span>블로그작성</span></a></li>
+                <li><a href="{{ url_for('write.write') }}"><span>블로그작성</span></a></li>
             </ul>
         </nav>
         <main class="main_container">
             <article>
-                <h2 class="main_title">Sub_Title</h2>
+                <h2 class="main_title">최근 포스팅</h2>
                 <ul class="main_lists">
-                    <li>
-                        <a href="blog_page.html">
-                            <div class="list_box_container">
-                                <h3>HTML: Hypertext Markup Language HTML: Hypertext Markup Language</h3>
-                                <time datetime="2021-05-31 22:00">210531 22:00</time>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <div class="list_box_container">
-                            <h3>CSS: Cascading Style Sheets</h3>
-                            <time datetime="2021-05-31 22:00">210531 22:00</time>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_box_container">
-                            <h3>JavaScript</h3>
-                            <time datetime="2021-05-31 22:00">210531 22:00</time>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_box_container">
-                            <h3>Python</h3>
-                            <time datetime="2021-05-31 22:00">210531 22:00</time>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="list_box_container">
-                            <h3>Flask</h3>
-                            <time datetime="2021-05-31 22:00">210531 22:00</time>
-                        </div>
-                    </li>
+                    {% block page_content %}
+                        {% for post in posts %}
+                            <li>
+                                <a href="blog_page.html">
+                                    <div class="list_box_container">
+                                        <h3>{{ post['title'] }}</h3>
+                                        <time datetime="{{ post['date'] }}">{{ post['date'] }}</time>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endblock %}
                 </ul>
             </article>
             <div class="main_arrows">
-                <img class="arrow_left"src="svg/arrow-left-solid.svg" alt="Back page">
-                <p class="arrow_num">1</p>
-                <img class="arrow_right" src="svg/arrow-right-solid.svg" alt="Next page">
+                {% block arrow_left_content %}
+                    {% if page_num <= min_page_num %}
+                        <img class="arrow_left" src="{{ url_for('static', filename='svg/arrow-left-solid.svg') }}" alt="Back page">
+                    {% else %}
+                        <a href="{{ url_for('home.home', page_num = page_num - 1) }}">
+                            <img class="arrow_left" src="{{ url_for('static', filename='svg/arrow-left-solid.svg') }}" alt="Back page">
+                        </a>
+                    {% endif %}
+                {% endblock %}
+                <p class="arrow_num">{{ page_num }}</p>
+                {% block arrow_right_content %}
+                    {% if page_num < max_page_num %}
+                        <a href="{{ url_for('home.home', page_num = page_num + 1) }}">
+                            <img class="arrow_right" src="{{ url_for('static', filename='svg/arrow-right-solid.svg') }}" alt="Next page">
+                        </a>
+                    {% else %}
+                        <img class="arrow_right" src="{{ url_for('static', filename='svg/arrow-right-solid.svg') }}" alt="Next page">
+                    {% endif %}
+                {% endblock %}
             </div>
         </main>
         <footer class="footer_container">

@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <header class="header_container">
-                <a class="header_logo" href="blog_home.html">
+                <a class="header_logo" href="{{ url_for('home.home') }}">
                     <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
                 <h1 class="header_title">블로그 작성</h1>
@@ -26,11 +26,11 @@
                 <li><a href=""><span>Backend</span></a></li>
                 <li><a href=""><span>DevOps</span></a></li>
                 <li><a href=""><span>CS</span></a></li>
-                <li><a href="blog_write.html"><span>블로그작성</span></a></li>
+                <li><a href="{{ url_for('write.write') }}"><span>블로그작성</span></a></li>
             </ul>
         </nav>
         <main class="main_container">
-            <form class="main_form" method="post" accept-charset="utf-8">
+            <form class="main_form" action="/write" method="post" accept-charset="utf-8">
                 <ul class="main_wrapper">
                     <li>
                         <label for="title">Title:</label>

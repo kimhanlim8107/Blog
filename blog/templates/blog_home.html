@@ -16,16 +16,16 @@
                 <a class="header_logo" href="{{ url_for('home.home') }}">
                     <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
-                <h1 class="header_title">Home</h1>
+                <h1 class="header_title">{{ function_name }}</h1>
                 <div></div>
         </header>
         <nav>
             <ul class="nav_container">
                 <li><a href="https://github.com/kimhanlim8107"><span>Github</span></a></li>
-                <li><a href=""><span>Frontend</span></a></li>
-                <li><a href=""><span>Backend</span></a></li>
-                <li><a href=""><span>DevOps</span></a></li>
-                <li><a href=""><span>CS</span></a></li>
+                <li><a href="{{ url_for('home.frontend') }}"><span>Frontend</span></a></li>
+                <li><a href="{{ url_for('home.backend') }}"><span>Backend</span></a></li>
+                <li><a href="{{ url_for('home.devops') }}"><span>DevOps</span></a></li>
+                <li><a href="{{ url_for('home.cs') }}"><span>CS</span></a></li>
                 <li><a href="{{ url_for('write.write') }}"><span>블로그작성</span></a></li>
             </ul>
         </nav>
@@ -52,7 +52,7 @@
                     {% if page_num <= min_page_num %}
                         <img class="arrow_left" src="{{ url_for('static', filename='svg/arrow-left-solid.svg') }}" alt="Back page">
                     {% else %}
-                        <a href="{{ url_for('home.home', page_num = page_num - 1) }}">
+                        <a href="{{ url_for('home.' + function_name, page_num = page_num - 1) }}">
                             <img class="arrow_left" src="{{ url_for('static', filename='svg/arrow-left-solid.svg') }}" alt="Back page">
                         </a>
                     {% endif %}
@@ -60,7 +60,7 @@
                 <p class="arrow_num">{{ page_num }}</p>
                 {% block arrow_right_content %}
                     {% if page_num < max_page_num %}
-                        <a href="{{ url_for('home.home', page_num = page_num + 1) }}">
+                        <a href="{{ url_for('home.' + function_name, page_num = page_num + 1) }}">
                             <img class="arrow_right" src="{{ url_for('static', filename='svg/arrow-right-solid.svg') }}" alt="Next page">
                         </a>
                     {% else %}

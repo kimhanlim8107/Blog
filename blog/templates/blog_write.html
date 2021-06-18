@@ -22,15 +22,15 @@
         <nav>
             <ul class="nav_container">
                 <li><a href="https://github.com/kimhanlim8107"><span>Github</span></a></li>
-                <li><a href=""><span>Frontend</span></a></li>
-                <li><a href=""><span>Backend</span></a></li>
-                <li><a href=""><span>DevOps</span></a></li>
-                <li><a href=""><span>CS</span></a></li>
+                <li><a href="{{ url_for('home.frontend') }}"><span>Frontend</span></a></li>
+                <li><a href="{{ url_for('home.backend') }}"><span>Backend</span></a></li>
+                <li><a href="{{ url_for('home.devops') }}"><span>DevOps</span></a></li>
+                <li><a href="{{ url_for('home.cs') }}"><span>CS</span></a></li>
                 <li><a href="{{ url_for('write.write') }}"><span>블로그작성</span></a></li>
             </ul>
         </nav>
         <main class="main_container">
-            <form class="main_form" action="/write" method="post" accept-charset="utf-8">
+            <form class="main_form" action="{{ url_for('write.write') }}" method="post" accept-charset="utf-8">
                 <ul class="main_wrapper">
                     <li>
                         <label for="title">Title:</label>

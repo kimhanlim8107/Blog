@@ -4,9 +4,9 @@ from flask import (
 )
 from blog.db import get_db
 
-bp = Blueprint('write', __name__)
+bp = Blueprint('write', __name__, url_prefix='/write')
 
-@bp.route('/write', methods=('GET', 'POST'))
+@bp.route('/create', methods=('GET', 'POST'))
 def write():
     if request.method == 'POST':
         title = request.form['title']

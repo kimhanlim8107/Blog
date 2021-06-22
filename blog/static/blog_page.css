@@ -120,6 +120,7 @@ footer {
 /* | Main Layout */
 
 .main_container {
+    position: relative;
     margin-top: 5px;
 }
 
@@ -129,7 +130,14 @@ footer {
 
 .main_content {
     width: 100%;
+    margin-left: 3px;
     height: auto;
+}
+
+.main_update {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
 }
 
 /* | Aside Layout */
@@ -170,6 +178,16 @@ footer {
 .main_container {
     border: 5px solid rgba(32,73,105,1);
     border-bottom: none;
+}
+
+.main_update {
+    border: 3px solid rgba(32,73,105,1);
+    padding: 2px;
+}
+
+.main_update:hover {
+    background-color: black;
+    color: white;
 }
 
 /* | Aside */

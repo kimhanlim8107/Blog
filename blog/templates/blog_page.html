@@ -32,6 +32,7 @@
         <main class="main_container">
             <h2 class="main_title">{{ post['title'] }}</h2>
             <article class="main_content">{{ post['content'] }}</article>
+            <a class='main_update' href="{{ url_for('write.update', repository=post['repository'], id=post['id']) }}">수정하기</a>
         </main>
         <aside class="aside_container">
             <div class="aside_advertise">

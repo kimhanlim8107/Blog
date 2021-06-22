@@ -36,7 +36,7 @@
                     {% block page_content %}
                         {% for post in posts %}
                             <li>
-                                <a href="blog_page.html">
+                                <a href="{{ url_for('page.page', repository=post['repository'], id=post['id']) }}">
                                     <div class="list_box_container">
                                         <h3>{{ post['title'] }}</h3>
                                         <time datetime="{{ post['date'] }}">{{ post['date'] }}</time>

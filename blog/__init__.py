@@ -28,4 +28,7 @@ def create_app(test_config=None):
     app.register_blueprint(blog_home.bp)
     app.add_url_rule('/', endpoint='home.home', defaults={'page_num' : 1})
 
+    from . import blog_page
+    app.register_blueprint(blog_page.bp)
+
     return app

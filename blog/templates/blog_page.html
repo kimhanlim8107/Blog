@@ -8,89 +8,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog_Page</title>
-    <link rel="stylesheet" href="./static/blog_page.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='blog_page.css') }}">
 </head>
 <body>
     <div class="container">
         <header class="header_container">
                 <a class="header_logo" href="blog_home.html">
-                    <img src="svg/home-solid.svg" alt="Blog Logo">
+                    <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
-                <h1 class="header_title">Main_Title</h1>
+                <h1 class="header_title">page</h1>
                 <div></div>
         </header>
         <nav>
             <ul class="nav_container">
                 <li><a href="https://github.com/kimhanlim8107"><span>Github</span></a></li>
-                <li><a href=""><span>Frontend</span></a></li>
-                <li><a href=""><span>Backend</span></a></li>
-                <li><a href=""><span>DevOps</span></a></li>
-                <li><a href=""><span>CS</span></a></li>
-                <li><a href="blog_write.html"><span>블로그작성</span></a></li>
+                <li><a href="{{ url_for('home.frontend') }}"><span>Frontend</span></a></li>
+                <li><a href="{{ url_for('home.backend') }}"><span>Backend</span></a></li>
+                <li><a href="{{ url_for('home.devops') }}"><span>DevOps</span></a></li>
+                <li><a href="{{ url_for('home.cs') }}"><span>CS</span></a></li>
+                <li><a href="{{ url_for('write.write') }}"><span>블로그작성</span></a></li>
             </ul>
         </nav>
         <main class="main_container">
-            <h2 class="main_title">Post_Title</h2>
-            <article class="main_content">
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-                <p>Post_content</p>
-            </article>
+            <h2 class="main_title">{{ post['title'] }}</h2>
+            <article class="main_content">{{ post['content'] }}</article>
         </main>
         <aside class="aside_container">
             <div class="aside_advertise">

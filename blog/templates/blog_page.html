@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <header class="header_container">
-                <a class="header_logo" href="blog_home.html">
+                <a class="header_logo" href="{{ url_for('home.home') }}">
                     <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
                 <h1 class="header_title">page</h1>
@@ -33,6 +33,7 @@
             <h2 class="main_title">{{ post['title'] }}</h2>
             <article class="main_content">{{ post['content'] }}</article>
             <a class='main_update' href="{{ url_for('write.update', repository=post['repository'], id=post['id']) }}">수정하기</a>
+            <a class='main_delete' href="{{ url_for('write.delete', repository=post['repository'], id=post['id']) }}">삭제하기</a>
         </main>
         <aside class="aside_container">
             <div class="aside_advertise">

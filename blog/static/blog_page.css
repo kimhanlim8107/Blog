@@ -140,6 +140,12 @@ footer {
     right: 5px;
 }
 
+.main_delete {
+    position: absolute;
+    bottom: 5px;
+    right: 85px;
+}
+
 /* | Aside Layout */
 
 .aside_container {
@@ -180,15 +186,17 @@ footer {
     border-bottom: none;
 }
 
-.main_update {
+.main_update, .main_delete {
     border: 3px solid rgba(32,73,105,1);
     padding: 2px;
 }
 
-.main_update:hover {
+.main_update:hover, .main_delete:hover {
     background-color: black;
     color: white;
 }
+
+.main_delete 
 
 /* | Aside */
 .aside_container {

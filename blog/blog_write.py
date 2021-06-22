@@ -54,3 +54,10 @@ def update(repository, id):
             return redirect(url_for('home.home'))
 
     return render_template('blog_update.html', post=post)
+
+@bp.route('/delete/<repository>/<id>')
+def delete(repository, id):
+    db = get_db()
+    db.execute("DELETE FROM post WHERE id = ? AND repository = ?", (id, repository))
+    db.commit()
+    return redirect(url_for('home.home'))

@@ -22,7 +22,7 @@ def write():
             error = 'content is required'
         
         if error == None:
-            db.execute("INSERT INTO post (title, repository, content, date) VALUES ('{}', '{}', '{}', '{}');".format(title, repo, content, date))
+            db.execute("INSERT INTO post (title, repository, content, date) VALUES (?, ?, ?, ?);", (title, repo, content, date))
             db.commit()
 
             return redirect(url_for('home.home'))

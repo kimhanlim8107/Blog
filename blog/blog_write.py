@@ -58,6 +58,11 @@ def update(repository, id):
 @bp.route('/delete/<repository>/<id>')
 def delete(repository, id):
     db = get_db()
-    db.execute("DELETE FROM post WHERE id = ? AND repository = ?", (id, repository))
+    db.execute("DELETE FROM post WHERE id = ? AND repository = ?;", (id, repository))
+    db.execute("UPDATE post SET id = (id - 1) WHERE id > ?;", (id,))
+    db.execute("UPDATE 'sqlite_sequence' SET seq = (seq - 1)")
     db.commit()
+    db.execute("VACUUM;")
+    db.commit()
+    
     return redirect(url_for('home.home'))

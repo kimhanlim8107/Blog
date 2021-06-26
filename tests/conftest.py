@@ -7,20 +7,16 @@ from blog.db import init_db, get_db
 
 @pytest.fixture(scope="session")
 def app():
-    db_fd = NamedTemporaryFile().name
+    db_file = NamedTemporaryFile().name
 
     app = create_app({
         "TESTING": True,
-        "DATABASE": db_fd
+        "DATABASE": db_file
     })
 
     with app.app_context():
-        # 테이블 스키마 실행
         init_db()
-        # 테이블 데이터 입력
-        get_db().execute("""INSERT INTO post (title, repository, content, date)
-                            VALUES ('test_title', 'test_repository', 'test_content', '2000-01-01 00:00');""")
-        get_db().commit()
+        get_db()
         yield app
 
 

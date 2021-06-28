@@ -44,6 +44,11 @@
                             <option value="devops">DevOps</option>
                             <option value="cs">CS</option>
                         </select>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <span><p>{{ messages[0] }}</p></span>
+                        {% endif %}
+                        {% endwith %}
                     </li>
                     <li class="content_wrapper">
                         <label for="content"></label>
@@ -54,6 +59,7 @@
                     </li>
                 </ul>
             </form>
+            
         </main>
         <footer class="footer_container">
             <p>E-mail</p>

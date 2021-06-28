@@ -1,6 +1,6 @@
 from datetime import datetime
 from flask import (
-    Blueprint, request, render_template, redirect, url_for, redirect
+    Blueprint, request, render_template, redirect, url_for, redirect, flash, session
 )
 from blog.db import get_db
 
@@ -16,10 +16,13 @@ def write():
         error = None
         db = get_db()
 
-        if title == None:
+        if content == '' and title == '':
+            error = 'title and content are required'
+        elif title == '':
             error = 'title is required'
-        elif content == None:
+        elif content == '':
             error = 'content is required'
+            
         
         if error == None:
             db.execute("INSERT INTO post (title, repository, content, date) VALUES (?, ?, ?, ?);", (title, repo, content, date))
@@ -27,6 +30,7 @@ def write():
 
             return redirect(url_for('home.home'))
         
+        flash(error)
 
     return render_template('blog_write.html')
 
@@ -43,15 +47,20 @@ def update(repository, id):
         error = None
         db = get_db()
 
-        if title == None:
+        if content == '' and title == '':
+            error = 'title and content are required'
+        elif title == '':
             error = 'title is required'
-        elif content == None:
+        elif content == '':
             error = 'content is required'
 
         if error == None:
             db.execute("UPDATE post SET title = ?, repository = ?, content = ?, date = ? WHERE id = ?", (title, repo, content, date, id))
             db.commit()
+
             return redirect(url_for('home.home'))
+        
+        flash(error)
 
     return render_template('blog_update.html', post=post)
 

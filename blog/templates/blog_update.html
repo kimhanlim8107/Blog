@@ -44,6 +44,11 @@
                             <option value="devops" {% if post['repository'] == 'devops' %} selected='selected' {% endif %}>DevOps</option>
                             <option value="cs" {% if post['repository'] == 'cs' %} selected='selected' {% endif %}>CS</option>
                         </select>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <span><p>{{ messages[0] }}</p></span>
+                        {% endif %}
+                        {% endwith %}
                     </li>
                     <li class="content_wrapper">
                         <label for="content"></label>

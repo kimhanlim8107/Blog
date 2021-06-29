@@ -3,10 +3,10 @@ from blog.db import get_db
 
 bp = Blueprint('page', __name__)
 
-@bp.route('/<repository>/<id>')
-def page(repository, id):
+@bp.route('/post/<post_id>')
+def page(post_id):
     db = get_db()
-    post = db.execute("SELECT * FROM post WHERE repository='{}' AND id='{}'".format(repository, id)).fetchone()
+    post = db.execute("SELECT * FROM post WHERE post_id={}".format(post_id)).fetchone()
 
     if post == None:
         abort(404)

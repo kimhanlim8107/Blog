@@ -9,6 +9,8 @@ bp = Blueprint('write', __name__, url_prefix='/write')
 @bp.route('/create', methods=('GET', 'POST'))
 def write():
     if request.method == 'POST':
+        writer = session['id']
+        print(writer)
         title = request.form['title']
         repo = request.form['repository']
         content = request.form['content']
@@ -25,7 +27,7 @@ def write():
             
         
         if error == None:
-            db.execute("INSERT INTO post (title, repository, content, date) VALUES (?, ?, ?, ?);", (title, repo, content, date))
+            db.execute("INSERT INTO post (title, repository, content, date, writer) VALUES (?, ?, ?, ?, ?);", (title, repo, content, date, writer))
             db.commit()
 
             return redirect(url_for('home.home'))
@@ -34,10 +36,10 @@ def write():
 
     return render_template('blog_write.html')
 
-@bp.route('/update/<repository>/<id>', methods=('GET', 'POST'))
-def update(repository, id):
+@bp.route('/update/post/<post_id>', methods=('GET', 'POST'))
+def update(post_id):
     db = get_db()
-    post = db.execute("SELECT * FROM post WHERE repository = '{}' AND id = '{}'".format(repository, id)).fetchone()
+    post = db.execute("SELECT * FROM post WHERE post_id = '{}'".format(post_id)).fetchone()
 
     if request.method == 'POST':
         title = request.form['title']
@@ -55,7 +57,7 @@ def update(repository, id):
             error = 'content is required'
 
         if error == None:
-            db.execute("UPDATE post SET title = ?, repository = ?, content = ?, date = ? WHERE id = ?", (title, repo, content, date, id))
+            db.execute("UPDATE post SET title = ?, repository = ?, content = ?, date = ? WHERE post_id = ?", (title, repo, content, date, post_id))
             db.commit()
 
             return redirect(url_for('home.home'))
@@ -64,11 +66,11 @@ def update(repository, id):
 
     return render_template('blog_update.html', post=post)
 
-@bp.route('/delete/<repository>/<id>')
-def delete(repository, id):
+@bp.route('/delete/post/<post_id>')
+def delete(post_id):
     db = get_db()
-    db.execute("DELETE FROM post WHERE id = ? AND repository = ?;", (id, repository))
-    db.execute("UPDATE post SET id = (id - 1) WHERE id >= ?;", (id,))
+    db.execute("DELETE FROM post WHERE post_id = ?", (post_id))
+    db.execute("UPDATE post SET post_id = (post_id - 1) WHERE post_id >= ?;", (post_id))
     db.execute("UPDATE 'sqlite_sequence' SET seq = (seq - 1)")
     db.commit()
     db.execute("VACUUM;")

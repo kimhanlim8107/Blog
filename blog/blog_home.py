@@ -9,10 +9,10 @@ bp = Blueprint('home', __name__)
 def render_post(repository, page_num):
     db = get_db()
     if repository == 'home':
-        num_post = db.execute("SELECT count(*) FROM post ORDER BY id DESC").fetchone()[0]
+        num_post = db.execute("SELECT count(*) FROM post").fetchone()[0]
         posts = db.execute("SELECT * FROM post ORDER BY date DESC").fetchall()
     else:
-        num_post = db.execute("SELECT count(*) FROM post WHERE repository = '{}' ORDER BY id DESC".format(repository)).fetchone()[0]
+        num_post = db.execute("SELECT count(*) FROM post WHERE repository = '{}'".format(repository)).fetchone()[0]
         posts = db.execute("SELECT * FROM post WHERE repository = '{}' ORDER BY date DESC".format(repository)).fetchall()
     
     min_page_num = 1

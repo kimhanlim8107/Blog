@@ -46,7 +46,7 @@ html, body {
     border: 3px solid rgba(32,73,105,1);
 }
 
-.login_submit {
+.form_submit {
     width: 90%;
     height: 30px;
     margin: 20px 15px;

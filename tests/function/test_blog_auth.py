@@ -4,14 +4,16 @@ def test_register(client):
     get_db().execute("INSERT INTO user (user_id, user_pw) VALUES ('test_id', 'test_pw')")
 
     response = client.get('/register')
-    response_blank = client.post('/register')
+    response_blank = client.post('/register', data={'id':'', 'pw':''})
     response_overlap = client.post('/register', data={'id':'test_id', 'pw':'test_pw'})
     response_correct = client.post('/register', data={'id':'new_test_id', 'pw':'test_pw'}, follow_redirects=True)
+    data = get_db().execute("SELECT * FROM user WHERE user_id = 'new_test_id'").fetchone()
 
     assert response.status_code == 200
     assert b"ID or Password is required" in response_blank.data
     assert b"ID is already registered" in response_overlap.data
     assert response_correct.status_code == 200
+    assert data != None
 
     init_db()
 

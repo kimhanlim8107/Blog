@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>{{ auth_header }}</title>
     <link rel="stylesheet" href="../static/blog_auth.css">
 </head>
 <body>
     <div class="form_container">
-        <form class="login_form" action="{{ url_for('auth.login') }}" method="post">
+        <form class="login_form" action="{{ auth_url }}" method="post">
             <h1>{{ auth_header }}</h1>
             <ul>
                 <li>
@@ -21,15 +21,15 @@
                     <input class="login_input" id="pw" name="pw" type="password" required>
                 </li>
                 <li>
-                    <button class="login_submit" type="submit">LOGIN</button>
+                    <button class="form_submit" type="submit">{{ auth_header }}</button>
                 </li>
             </ul>
             <div class="warning_box">
-                    {% with message = get_flashed_messages() %}
-                    {% if message %}
-                    <p>{{ message[0] }}</p>
-                    {% endif %}
-                    {% endwith %}
+                {% with message = get_flashed_messages() %}
+                {% if message != None %}
+                <p>{{ message[0] }}</p>
+                {% endif %}
+                {% endwith %}
             </div>
         </form>
     </div>

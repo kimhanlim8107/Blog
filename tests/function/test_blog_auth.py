@@ -1,3 +1,4 @@
+from flask import session
 from blog.db import get_db, init_db
 
 def test_register(client):
@@ -30,3 +31,13 @@ def test_login(client):
     assert response_correct_user.status_code == 200
 
     init_db()
+
+def test_logout(client):
+    response = client.get('/logout', follow_redirects=True)
+    with client.session_transaction() as sess:
+        sess['id'] = 'test_id'
+    client.get('/logout', follow_redirects=True)
+
+    assert response.status_code == 200
+    assert 'test_id' not in sess
+    

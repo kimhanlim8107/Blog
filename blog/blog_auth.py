@@ -53,3 +53,8 @@ def login():
             return redirect(url_for('home.home'))
 
     return render_template('blog_auth.html', auth_header=auth_header, auth_url=auth_url)
+
+@bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('home.home'))

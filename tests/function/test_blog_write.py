@@ -1,4 +1,4 @@
-from flask import session
+from flask import session, g
 from blog.db import init_db, get_db
 
 def test_write(client):
@@ -33,8 +33,12 @@ def test_write(client):
     
 def test_update(client):
     get_db().execute("INSERT INTO user (user_id, user_pw) VALUES ('test_id', 'test_pw')")
-    get_db().execute("INSERT INTO post (title, repository, content, date, writer) VALUES ('test_title', 'test_repository', 'test_content', '2000-01-01 00:00', 'test_client')")
+    get_db().execute("INSERT INTO post (title, repository, content, date, writer) VALUES ('test_title', 'test_repository', 'test_content', '2000-01-01 00:00', 'test_id')")
 
+    g.user = 'test_id'
+    with client.session_transaction() as session:
+        session['id'] = 'test_id'
+        session['writer'] = 'test_id'   
     response_page_load = client.get('/write/update/post/1')
     response_empty_title = client.post('/write/update/post/1', data={'title':'', 
                                                               'repository':'test_repository_update', 

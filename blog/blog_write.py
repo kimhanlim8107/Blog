@@ -3,14 +3,15 @@ from flask import (
     Blueprint, request, render_template, redirect, url_for, redirect, flash, session
 )
 from blog.db import get_db
+from blog.blog_auth import login_required, access_required
 
 bp = Blueprint('write', __name__, url_prefix='/write')
 
 @bp.route('/create', methods=('GET', 'POST'))
+@login_required
 def write():
     if request.method == 'POST':
         writer = session['id']
-        print(writer)
         title = request.form['title']
         repo = request.form['repository']
         content = request.form['content']
@@ -37,6 +38,7 @@ def write():
     return render_template('blog_write.html')
 
 @bp.route('/update/post/<post_id>', methods=('GET', 'POST'))
+@access_required
 def update(post_id):
     db = get_db()
     post = db.execute("SELECT * FROM post WHERE post_id = '{}'".format(post_id)).fetchone()
@@ -61,12 +63,13 @@ def update(post_id):
             db.commit()
 
             return redirect(url_for('home.home'))
-        
+
         flash(error)
 
     return render_template('blog_update.html', post=post)
 
 @bp.route('/delete/post/<post_id>')
+@access_required
 def delete(post_id):
     db = get_db()
     db.execute("DELETE FROM post WHERE post_id = ?", (post_id))
@@ -77,3 +80,5 @@ def delete(post_id):
     db.commit()
     
     return redirect(url_for('home.home'))
+
+

@@ -5,7 +5,7 @@ import pytest
 from blog import create_app
 from blog.db import init_db, get_db
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def app():
     db_file = NamedTemporaryFile().name
 
@@ -20,7 +20,7 @@ def app():
         yield app
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def client(app):
     with app.test_client() as client:
         with app.app_context():

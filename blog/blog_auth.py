@@ -1,4 +1,6 @@
-from flask import Blueprint, render_template, request, session, flash, redirect, url_for
+from functools import wraps
+
+from flask import Blueprint, render_template, request, session, flash, redirect, url_for, g, abort
 from blog.db import get_db
 
 bp = Blueprint('auth', __name__)
@@ -58,3 +60,36 @@ def login():
 def logout():
     session.clear()
     return redirect(url_for('home.home'))
+
+@bp.before_app_request
+def load_user():
+    user_id = session.get('id')
+
+    if user_id == None:
+        g.user = None
+    else:
+        g.user = session['id']
+
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user == None:
+            return redirect(url_for('auth.login'))
+        
+        return view(**kwargs)
+
+    return wrapped_view
+
+def access_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user == None:
+            return redirect(url_for('auth.login'))
+        elif g.user != session['writer']:
+            flash("you do not have access")
+            return redirect(session['url'])
+
+        return view(**kwargs)
+
+    return wrapped_view
+

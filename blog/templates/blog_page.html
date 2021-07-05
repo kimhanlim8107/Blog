@@ -17,7 +17,13 @@
                     <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
                 <h1 class="header_title">page</h1>
-                <div></div>
+                {% block auth %}
+                {% if session['id'] %}
+                <a class="header_auth" href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                <a class="header_auth" href="{{ url_for('auth.login') }}">Login</a>
+                {% endif %}
+                {% endblock %}
         </header>
         <nav>
             <ul class="nav_container">
@@ -34,6 +40,11 @@
             <article class="main_content">{{ post['content'] }}</article>
             <a class='main_update' href="{{ url_for('write.update', post_id=post['post_id']) }}">수정하기</a>
             <a class='main_delete' href="{{ url_for('write.delete', post_id=post['post_id']) }}">삭제하기</a>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <span><p>{{ messages[0] }}</p></span>
+            {% endif %}
+            {% endwith %}
         </main>
         <aside class="aside_container">
             <div class="aside_advertise">

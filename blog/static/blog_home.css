@@ -91,8 +91,13 @@ footer {
 }
 
 .header_title {
-    padding-right: 100px;
+    width: 100px;
     margin: auto;
+    text-align: center;
+}
+
+.header_auth {
+    margin: auto 32px;
 }
 
 /* | Nav Layout */

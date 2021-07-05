@@ -17,7 +17,13 @@
                     <img src="{{ url_for('static', filename='svg/home-solid.svg') }}" alt="Blog Logo">
                 </a>
                 <h1 class="header_title">{{ function_name }}</h1>
-                <div></div>
+                {% block auth %}
+                {% if session['id'] %}
+                <a class="header_auth" href="{{ url_for('auth.logout') }}">Logout</a>
+                {% else %}
+                <a class="header_auth" href="{{ url_for('auth.login') }}">Login</a>
+                {% endif %}
+                {% endblock %}
         </header>
         <nav>
             <ul class="nav_container">

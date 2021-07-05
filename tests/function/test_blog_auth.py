@@ -1,4 +1,4 @@
-from flask import session
+from flask import g, session
 from blog.db import get_db, init_db
 
 def test_register(client):
@@ -40,4 +40,24 @@ def test_logout(client):
 
     assert response.status_code == 200
     assert 'test_id' not in sess
+
+def test_login_required(client):
+    g.user = None
+    response = client.get('/write/create')
+
+    assert response.status_code == 302
     
+def test_access_required(client):
+    get_db().execute("INSERT INTO user (user_id, user_pw) VALUES ('test_id', 'test_pw')")
+    get_db().execute("INSERT INTO post (title, repository, content, date, writer) VALUES ('test_title', 'test_repository', 'test_content', '2000-01-01 00:00', 'test_id')")
+
+    g.user = None
+    response_update_wrong_login = client.get('/write/update/post/1')
+    response_delete_wrong_login = client.get('/write/delete/post/1')
+
+    init_db()
+
+    assert response_update_wrong_login.status_code == 302
+    assert response_delete_wrong_login.status_code == 302
+    
+
